@@ -6,3 +6,5 @@ sluggish to us.
 
 So i hv made this project where we can just take image of that book page and then it will
 show us all the words with respective meanings!!
+
+App is deployed using cyclic here :- https://gold-tick-gown.cyclic.app/
