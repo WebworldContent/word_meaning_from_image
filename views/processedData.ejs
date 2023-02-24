@@ -34,7 +34,8 @@
             </div>
         </div>
         <div class="row">
-            <img id="imageBase64" style="max-width: 100%;" src="data:image/png;base64,<%= imageBase %>" />
+            <img id="imageBase64" style="max-width: 100%;" src="<%= imageBase %>" />
+            <p id="imageCheck" hidden><%= isUploadedImage %></p>
         </div>
         <div class="row">
             <div id="processedData"></div>
@@ -68,7 +69,6 @@ function progressBar(stop = false) {
     const bar = document.querySelector('.progress-bar');
     let interval = setInterval(() => {
         let prevWidth = bar.style.width;
-        // console.log(prevWidth);
         if (parseInt(prevWidth.split('%')[0]) > 100 || stop) {
             clearInterval(interval)
         }
@@ -77,17 +77,25 @@ function progressBar(stop = false) {
 }
 
 window.onload = function() {
-    const base64Data = document.querySelector('#imageBase64').getAttribute('src');
-    const pureBase64 = base64Data.replace(/^data:image\/png;base64,/, '')
+    const isUploadedImage = parseInt(document.querySelector('#imageCheck').innerHTML)
+    const obj = {}
+    const imageSrc = document.querySelector('#imageBase64').getAttribute('src');
+    if (!isUploadedImage) {
+        obj.data = imageSrc.replace(/^data:image\/png;base64,/, '')
+        obj.isUploaded = false
+    } else {
+        obj.data = imageSrc;
+        obj.isUploaded = true
+    }
     progressBar()
-    fetch('http://localhost:5005/processingData', {
+    fetch('http://localhost:3000/processingData', {
         method: "POST",
         mode: 'cors',
         headers: {
         'Content-Type': 'application/json'
         // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({data: pureBase64})
+        body: JSON.stringify(obj)
     }).then(response => response.json()).then((wordMeaning) => {
         document.querySelector('.progress-bar').style.display = 'none';
         document.querySelector('#processTitle').innerHTML = 'Processing Done !!';

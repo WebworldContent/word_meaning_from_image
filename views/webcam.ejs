@@ -19,15 +19,23 @@
                 <div class="row">
                     <video id="video" style="width: 100%; padding-top: 100px;" autoplay></video>
                 </div>
-                    <!-- <div id="snap"
-                        style="height: 150px; width: 150px; border-radius: 50%; text-align: center; background-color: aquamarine; color: black; padding: 10px; font-size:x-large; line-height: 6;cursor: pointer;">
-                        Capture!
-                    </div> -->
                 <div class="row">
                     <canvas id="canvas" width="700" height="400"></canvas>
                 </div>
             </div>
             <div class="col-md-3 col-sm-3 col-lg-3"></div>
+        </div>
+
+        <div class="row" style="background-color: aqua;">
+            <form action="/processed" method="POST" enctype="multipart/form-data">
+                <div style="padding: 20px;">
+                    <label>Upload Picture</label>
+                    <input type="file" name="image" required/>
+                </div>
+                <div>
+                    <input type="submit" value="Upload" />
+                </div>
+            </form>
         </div>
 
         <div class="row">
