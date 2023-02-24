@@ -11,8 +11,8 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 app.use(cors());
-app.use(bodyParser.urlencoded({extended: false, limit: '5mb'})) // to parse form data application/x-www-form-urlencoded
-app.use(bodyParser.json({limit: '5mb'})) // to parse application/json head data
+app.use(bodyParser.urlencoded({extended: false, limit: '10mb'})) // to parse form data application/x-www-form-urlencoded
+app.use(bodyParser.json({limit: '10mb'})) // to parse application/json head data
 
 app.use(indexRoutes);
 
