@@ -52,6 +52,7 @@ async function readImage(imageData) {
             const image = Buffer.from(imageData, "base64")
             const lang = 'eng'; // for only english recognition for 
             const { data: { text } } = await Tesseract.recognize(image , lang)
+            console.log(text)
             return await readData(text)
         }
     } catch (err) {

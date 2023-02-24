@@ -18,6 +18,7 @@ const upload = multer({})
 import processingImage from '../controller/diction.js';
 
 router.get('/', (req, res, next) => {
+    console.log('on index page')
     res.render('webcam')
 });
 
@@ -31,6 +32,7 @@ router.post('/processingData', async (req, res, next) => {
 });
 
 router.post('/processed', upload.single('image'), async (req, res, next) => {
+    console.log('on processed route')
     const base64Init = 'data:image/png;base64,';
     const imageData = req.file ? req.file.buffer.toString('base64') : base64Init + req.body.imageData;
     res.render('processedData', {
