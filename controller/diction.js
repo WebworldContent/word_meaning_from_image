@@ -2,8 +2,6 @@ import axios from "axios";
 import readline from 'readline';
 import {Readable} from 'stream';
 import Tesseract from 'tesseract.js';
-import path from 'path';
-import url from 'url';
 
 async function fetchMeaning(word) {
     try {
@@ -48,11 +46,10 @@ async function readData(data) {
     return mapping;
 }
 
-async function readImage(imageData, isUploaded = false) {
+async function readImage(imageData) {
     try {
-        const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
         if (imageData.length) {
-            const image = isUploaded ? path.join(__dirname, '..' , 'public', imageData) : Buffer.from(imageData, "base64")
+            const image = Buffer.from(imageData, "base64")
             const lang = 'eng'; // for only english recognition for 
             const { data: { text } } = await Tesseract.recognize(image , lang)
             return await readData(text)

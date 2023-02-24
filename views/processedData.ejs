@@ -35,7 +35,6 @@
         </div>
         <div class="row">
             <img id="imageBase64" style="max-width: 100%;" src="<%= imageBase %>" />
-            <p id="imageCheck" hidden><%= isUploadedImage %></p>
         </div>
         <div class="row">
             <div id="processedData"></div>
@@ -77,16 +76,8 @@ function progressBar(stop = false) {
 }
 
 window.onload = function() {
-    const isUploadedImage = parseInt(document.querySelector('#imageCheck').innerHTML)
-    const obj = {}
     const imageSrc = document.querySelector('#imageBase64').getAttribute('src');
-    if (!isUploadedImage) {
-        obj.data = imageSrc.replace(/^data:image\/png;base64,/, '')
-        obj.isUploaded = false
-    } else {
-        obj.data = imageSrc;
-        obj.isUploaded = true
-    }
+    const base64Data = imageSrc.replace(/^data:image\/png;base64,/, '')
     progressBar()
     fetch('http://localhost:3000/processingData', {
         method: "POST",
@@ -95,7 +86,7 @@ window.onload = function() {
         'Content-Type': 'application/json'
         // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(obj)
+        body: JSON.stringify({data: base64Data})
     }).then(response => response.json()).then((wordMeaning) => {
         document.querySelector('.progress-bar').style.display = 'none';
         document.querySelector('#processTitle').innerHTML = 'Processing Done !!';
